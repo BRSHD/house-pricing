@@ -4,6 +4,8 @@ import joblib
 import numpy as np
 
 
+model = joblib.load('GB_model.pkl')
+
 st.title("California House Price Prediction")
 
 longitude = st.number_input("Longitude", value=-118.49)
@@ -21,17 +23,16 @@ income_per_person = st.number_input("Income per Person", value=1.5)
 
 
 st.write("Ocean Proximity:")
-ocean_proximity_H_OCEAN = st.checkbox("<1H_OCEAN")
-ocean_proximity_INLAND = st.checkbox("INLAND")
-ocean_proximity_ISLAND = st.checkbox("ISLAND")
-ocean_proximity_NEAR_BAY = st.checkbox("NEAR_BAY")
-ocean_proximity_NEAR_OCEAN = st.checkbox("NEAR_OCEAN")
+H_OCEAN = st.checkbox("<1H_OCEAN")
+INLAND = st.checkbox("INLAND")
+ISLAND = st.checkbox("ISLAND")
+NEAR_BAY = st.checkbox("NEAR_BAY")
+NEAR_OCEAN = st.checkbox("NEAR_OCEAN")
 
 if st.button("Predict Price"):
     try:
-        model = joblib.load('GB_model.pkl')
         
-        features_df = pd.DataFrame([{
+        features = pd.DataFrame([{
             'longitude': longitude,
             'latitude': latitude,
             'housing_median_age': housing_median_age,
@@ -44,16 +45,16 @@ if st.button("Predict Price"):
             'bedrooms_per_room': bedrooms_per_room,
             'population_per_household': population_per_household,
             'income_per_person': income_per_person,
-            'ocean_proximity_H_OCEAN': ocean_proximity_H_OCEAN,
-            'ocean_proximity_INLAND': ocean_proximity_INLAND,
-            'ocean_proximity_ISLAND': ocean_proximity_ISLAND,
-            'ocean_proximity_NEAR_BAY': ocean_proximity_NEAR_BAY,
-            'ocean_proximity_NEAR_OCEAN': ocean_proximity_NEAR_OCEAN
+            'ocean_proximity_H_OCEAN': H_OCEAN,
+            'ocean_proximity_INLAND': INLAND,
+            'ocean_proximity_ISLAND': ISLAND,
+            'ocean_proximity_NEAR_BAY': NEAR_BAY,
+            'ocean_proximity_NEAR_OCEAN': NEAR_OCEAN
         }])
         
-        price_log = model.predict(features_df)[0]
-        price = np.exp(price_log)
-        st.success(f"Predicted Price: ${price:,.2f}")
+        price = model.predict(features)[0]
+        pricev = np.expm1(price)
+        st.success(f"Predicted Price: ${pricev:,.0f}")
         
     except Exception as e:
         st.error(f"Error: {str(e)}")
