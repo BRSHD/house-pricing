@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
-
+import requests
 
 model = joblib.load('GB_model.pkl')
 
@@ -52,9 +52,8 @@ if st.button("Predict Price"):
             'ocean_proximity_NEAR_OCEAN': NEAR_OCEAN
         }])
         
-        price = model.predict(features)[0]
-        pricev = np.expm1(price)
-        st.success(f"Predicted Price: ${pricev:,.0f}")
+        response = requests.post('http://127.0.0.1:8000/score', json = features)
+        st.success(response.json())
         
     except Exception as e:
         st.error(f"Error: {str(e)}")
