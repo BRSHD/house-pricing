@@ -28,16 +28,27 @@ model = joblib.load('GB_model.pkl')
 
 @app.post('/score')
 def score(data: HouseData):
-    features_list = [
-        data.longitude, data.latitude, data.housing_median_age, data.total_rooms,
-        data.total_bedrooms, data.population, data.households, data.median_income,
-        data.rooms_per_household, data.bedrooms_per_room, data.population_per_household,
-        data.income_per_person, data.H_OCEAN, data.INLAND, data.ISLAND, data.NEAR_BAY,
-        data.NEAR_OCEAN
-    ]
-    
-    # Двумерный список: [[features]]
-    price = model.predict([features_list])[0]
-    price_value = float(price)
-    
-    return {'price': price_value}
+    features = pd.DataFrame([{
+        'longitude': data.longitude,
+        'latitude': data.latitude,
+        'housing_median_age': data.housing_median_age,
+        'total_rooms': data.total_rooms,
+        'total_bedrooms': data.total_bedrooms,
+        'population': data.population,
+        'households': data.households,
+        'median_income': data.median_income,
+        'rooms_per_household': data.rooms_per_household,
+        'bedrooms_per_room': data.bedrooms_per_room,
+        'population_per_household': data.population_per_household,
+        'income_per_person': data.income_per_person,
+        'ocean_proximity_H_OCEAN': data.H_OCEAN,
+        'ocean_proximity_INLAND': data.INLAND,
+        'ocean_proximity_ISLAND': data.ISLAND,
+        'ocean_proximity_NEAR_BAY': data.NEAR_BAY,
+        'ocean_proximity_NEAR_OCEAN': data.NEAR_OCEAN
+    }])
+
+    price = model.predict([features])[0]
+
+    return {'price': price}
+
