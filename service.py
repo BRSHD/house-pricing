@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import joblib
+import pandas as pd
 
 
 class HouseData(BaseModel):
@@ -15,18 +17,27 @@ class HouseData(BaseModel):
     bedrooms_per_room: float
     population_per_household: float
     income_per_person: float
-    ocean_oneH_OCEAN: bool
-    ocean_INLAND: bool
-    ocean_ISLAND: bool
-    ocean_NEAR_BAY: bool
-    ocean_NEAR_OCEAN: bool
+    H_OCEAN: bool
+    INLAND: bool
+    ISLAND: bool
+    NEAR_BAY: bool
+    NEAR_OCEAN: bool
 
 app = FastAPI()
-
+model = joblib.load('GB_model.pkl')
 
 @app.post('/score')
 def score(data: HouseData):
-    price = data.total_rooms > 2.0
-    return {'price': price}
-
-
+    features_list = [
+        data.longitude, data.latitude, data.housing_median_age, data.total_rooms,
+        data.total_bedrooms, data.population, data.households, data.median_income,
+        data.rooms_per_household, data.bedrooms_per_room, data.population_per_household,
+        data.income_per_person, data.H_OCEAN, data.INLAND, data.ISLAND, data.NEAR_BAY,
+        data.NEAR_OCEAN
+    ]
+    
+    # Двумерный список: [[features]]
+    price = model.predict([features_list])[0]
+    price_value = float(price)
+    
+    return {'price': price_value}
