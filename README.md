@@ -67,7 +67,7 @@ streamlit run app.py
 
 - medianHouseValue: средняя стоимость жилья для домохозяйств в пределах квартала (измеряется в долларах США)
 
-## Технологи
+## Технологии
 
 - **Python 3.11+**
 - **Scikit-learn**, **Pandas**, **NumPy**, **Matplotlib**, **Seaborn**
@@ -92,7 +92,7 @@ streamlit run app.py
 - **Streamlit**-приложение для визуализации и интерактивных предсказаний
 - **FastAPI**-сервис для программного вызова модели через HTTP
 
-| Алгоритм | RMSE | R² Score | 
+| | RMSE | R² Score | 
 |----------|------|----------|
 | Random Forest Regressor | 53737.02 | 0.7792 |
 | Gradient Boosting Regressor | **52847.56** | **0.7864** | 
