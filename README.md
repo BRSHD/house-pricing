@@ -11,6 +11,7 @@
 
 ```bash
 git clone https://github.com/BRSHD/housing-prices
+cd housing-prices
 ```
 
 2. Создайте виртуальное окружение для проекта с помощью `venv`:
@@ -33,11 +34,18 @@ pip install -r requirements.txt
 uvicorn service:app
 ```
 
-5. После запуска сервиса выполните команду для показа веб-интерфейса:
+После запуска FastAPI будет доступен по адресу: http://localhost:8000
+
+Документация API: http://localhost:8000/docs
+
+
+5. Выполните команду для показа веб-интерфейса:
 
 ```shell
 streamlit run app.py
 ```
+
+После запуска Streamlit будет доступен по адресу: http://localhost:8501
 
 
 ## Данные
@@ -80,6 +88,7 @@ streamlit run app.py
 - **requests** - HTTP-запросы для взаимодействия с API
 
 ## Основные этапы 
+
 ✅Анализ и предобработка данных: удаление пропущенных значений, ограничение и удаление выбросов
 
 ✅Создание новых признаков и One-Hot Encoding для ocean_proximity
@@ -96,10 +105,10 @@ streamlit run app.py
 
 ## Результаты 
 
-| | RMSE | R² Score | 
-|----------|------|----------|
+| | RMSE | R² Score |
+|:---:|:---:|:---:|
 | Random Forest Regressor | 44021.74 | 0.8101 |
-| Gradient Boosting Regressor | **43247.14** | **0.8167** | 
+| Gradient Boosting Regressor | **43247.14** | **0.8167** |
 
  **Gradient Boosting** показал чуть лучшие метрики, чем **Random Forest**: на ~774 меньшую RMSE и на 0,66% лучшую объясняющую способность. 
  
