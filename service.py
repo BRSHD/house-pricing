@@ -49,5 +49,5 @@ def score(data: HouseData):
 
     price = model.predict([features])[0]
 
-    return f"${price:,.2f}"
+    return f"${price:,.0f}"
 
