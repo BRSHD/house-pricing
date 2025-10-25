@@ -8,7 +8,7 @@
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/BRSHD/house-pricing
+git clone https://github.com/BRSHD/housing-prices
 ```
 
 2. Создайте виртуальное окружение для проекта с помощью `venv`:
