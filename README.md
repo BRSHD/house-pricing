@@ -3,6 +3,41 @@
 Прогнозирование цен на жильё в Калифорнии с использованием Gradient Boosting.  
 Проект включает обучение модели, визуализацию данных и создание веб-интерфейса с помощью FastAPI и Streamlit для взаимодействия c данными.
 
+## Локальный запуск
+
+1. Клонируйте репозиторий:
+
+```bash
+git clone https://github.com/BRSHD/house-pricing
+```
+
+2. Создайте виртуальное окружение для проекта с помощью `venv`:
+
+```shell
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate.ps1  # Windows
+```
+
+3. Установите зависимости проекта:
+
+```shell
+pip install -r requirements.txt
+```
+
+4. Запустите сервис с помощью команды:
+
+```shell
+uvicorn service:app
+```
+
+5. После запуска сервиса выполните команду для показа веб-интерфейса:
+
+```shell
+streamlit run app.py
+```
+
+
 ## Данные
 
 Открытый датасет [**California Housing Prices**](https://www.kaggle.com/datasets/camnugent/california-housing-prices).  
@@ -29,17 +64,18 @@
 - oceanProximity: Расположение дома относительно океана/моря
 
 Целевая переменная:
--medianHouseValue: средняя стоимость жилья для домохозяйств в пределах квартала (измеряется в долларах США)
+
+- medianHouseValue: средняя стоимость жилья для домохозяйств в пределах квартала (измеряется в долларах США)
 
 ## Технологи
 
 - **Python 3.11+**
-- Библиотеки: Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn
+- **Scikit-learn**, **Pandas**, **NumPy**, **Matplotlib**, **Seaborn**
 - **Streamlit** — веб-интерфейс для пользователя
 - **FastAPI + Uvicorn** — REST API для инференса
 - **Joblib** — сохранение обученных моделей
 - **pydantic** - валидация данных и настройки для FastAPI
--**requests** - HTTP-запросы для взаимодействия с API
+- **requests** - HTTP-запросы для взаимодействия с API
 
 ## Основные этапы 
 ✅Анализ и предобработка данных: удаление пропущенных значений и ограничение выбросов
@@ -48,12 +84,22 @@
 
 ✅Анализ корреляций признаков
 
-✅Построение моделей: Random Forest Regressor и Gradient Boosting Regressor
+✅Логарифмирование целевой переменной
 
-✅Подбор гиперпараметров и оценка метрик
+✅Построение моделей с кросс-валидацией: Random Forest Regressor и Gradient Boosting Regressor
+
+✅Подбор гиперпараметров с помощью RandmoizedSearchCV и оценка метрик(R^2 и RMSE)
 
 Для удобства взаимодействия созданы:
 - **Streamlit**-приложение для визуализации и интерактивных предсказаний
 - **FastAPI**-сервис для программного вызова модели через HTTP
+
+| Алгоритм | RMSE | R² Score | 
+|----------|------|----------|
+| Random Forest Regressor | 53737.02 | 0.7792 |
+| Gradient Boosting Regressor | **52847.56** | **0.7864** | 
+
+ **Gradient Boosting** показал чуть лучшие метрики, чем **Random Forest**: на ~890 меньшую RMSE и на 0,72% лучшую объяняющую способность.
+
 
   
