@@ -1,5 +1,7 @@
 # California Housing Prices
 
+<img width="1902" height="887" alt="image" src="https://github.com/user-attachments/assets/f9794a83-4b20-45b5-bbdf-acd5f20ccece" />
+
 Модель машинного обучения(Gradient Boosting), помогающая риелторам, инвесторам и банкам в оценке недвижимости в штате Калифорния. 
 Проект включает визуализацию данных, обучение модели и создание веб-интерфейса с помощью FastAPI и Streamlit для взаимодействия c данными.
 
