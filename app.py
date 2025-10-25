@@ -32,7 +32,7 @@ NEAR_OCEAN = st.checkbox("NEAR_OCEAN")
 if st.button("Predict Price"):
     try:
         
-        features = pd.DataFrame([{
+        features = {
             'longitude': longitude,
             'latitude': latitude,
             'housing_median_age': housing_median_age,
@@ -45,12 +45,12 @@ if st.button("Predict Price"):
             'bedrooms_per_room': bedrooms_per_room,
             'population_per_household': population_per_household,
             'income_per_person': income_per_person,
-            'ocean_proximity_H_OCEAN': H_OCEAN,
-            'ocean_proximity_INLAND': INLAND,
-            'ocean_proximity_ISLAND': ISLAND,
-            'ocean_proximity_NEAR_BAY': NEAR_BAY,
-            'ocean_proximity_NEAR_OCEAN': NEAR_OCEAN
-        }])
+            'H_OCEAN': H_OCEAN,
+            'INLAND': INLAND,
+            'ISLAND': ISLAND,
+            'NEAR_BAY': NEAR_BAY,
+            'NEAR_OCEAN': NEAR_OCEAN
+        }
         
         response = requests.post('http://127.0.0.1:8000/score', json = features)
         st.success(response.json())
